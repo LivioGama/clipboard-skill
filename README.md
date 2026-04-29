@@ -6,23 +6,30 @@ Transform your development workflow with instant command generation and cross-pl
 
 ## ✨ Features
 
-🚀 **Zero-friction workflow** — Commands appear in clipboard instantly, no explanations or fluff  
+🚀 **Natural language processing** — Understands conversational requests and generates appropriate commands  
 🌍 **Universal platform support** — macOS, Linux (X11/Wayland), Windows, WSL, and Android (Termux)  
-🎯 **Smart templates** — Pre-built shortcuts for common operations  
+🎯 **One-liner detection** — Perfect for sharing commands with colleagues  
 🛡️ **Safety first** — Automatic validation prevents dangerous commands  
-⚡ **One-liner optimization** — Chains commands intelligently with `&&` and `;`  
+⚡ **Context-aware optimization** — Chains commands intelligently with `&&` and `;`  
 
 ## 🔧 Installation
 
-1. **Clone or download** this skill to your Claude Code skills directory:
-   ```bash
-   git clone <this-repo> ~/.claude/skills/clipboard
-   # OR manually place SKILL.md in ~/.claude/skills/clipboard/
-   ```
+### Modern Installation (Recommended)
 
-2. **Restart Claude Code** to load the skill
+Install directly from GitHub using Claude Code's built-in skill installer:
 
-3. **Start using** with `/clipboard` command!
+```bash
+/skill-installer install from https://github.com/LivioGama/clipboard-skill
+```
+
+### Manual Installation (Alternative)
+
+If you prefer manual setup:
+```bash
+git clone https://github.com/LivioGama/clipboard-skill ~/.claude/skills/clipboard
+```
+
+After installation, restart Claude Code to load the skill, then start using with `/clipboard`!
 
 ## 🚀 Quick Start
 
