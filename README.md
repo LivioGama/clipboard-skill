@@ -8,7 +8,7 @@ Transform your development workflow with instant command generation and cross-pl
 
 🚀 **Natural language processing** — Understands conversational requests and generates appropriate commands  
 🌍 **Universal platform support** — macOS, Linux (X11/Wayland), Windows, WSL, and Android (Termux)  
-🎯 **One-liner detection** — Perfect for sharing commands with colleagues  
+🎯 **Colleague sharing focus** — Perfect for unusual commands that are hard to find or remember  
 🛡️ **Safety first** — Automatic validation prevents dangerous commands  
 ⚡ **Context-aware optimization** — Chains commands intelligently with `&&` and `;`  
 
@@ -39,79 +39,78 @@ After installation, restart your environment and start using with `/clipboard`!
 ## 🚀 Quick Start
 
 ```bash
-# Get git commands instantly
-/clipboard git reset last commit but keep changes
+# Configure OpenCode to only use Copilot
+/clipboard one-liner to configure OpenCode for Copilot only
 
-# Docker operations made simple  
-/clipboard stop all docker containers
+# Kill and restart SSH agent  
+/clipboard restart stuck SSH agent
 
-# File searches without the headache
-/clipboard find all javascript files in src directory
+# Find large files for cleanup
+/clipboard find all files larger than 100MB
 
-# Use built-in templates
-/clipboard git-add-commit-push
-/clipboard docker-stop-all
+# Kill process holding a file handle
+/clipboard kill process holding file handle on specific file
 ```
 
 ## 📖 Usage Examples
 
-### Git Operations
+### Colleague Sharing Commands
 ```bash
-/clipboard git create new branch and switch to it
-# → git checkout -b new-branch
+/clipboard one-liner to configure OpenCode for Copilot only
+# → mkdir -p ~/.config/opencode && echo '{"$schema":"https://opencode.ai/config.json","enabled_providers":["github-copilot"],"provider_lock":true}' > ~/.config/opencode/opencode.json
 
-/clipboard git-reset-keep
-# → git reset HEAD~1
+/clipboard restart stuck SSH agent
+# → pkill ssh-agent; eval $(ssh-agent -s); ssh-add ~/.ssh/id_rsa
 
-/clipboard undo last git commit
-# → git reset HEAD~1
+/clipboard kill process holding file handle
+# → lsof "$1" | awk 'NR>1 {print $2}' | xargs kill -9
 ```
 
-### File Operations
+### System Administration
 ```bash
-/clipboard find all python files excluding venv
-# → find . -name '*.py' -not -path './venv/*' -not -path './.venv/*'
+/clipboard find files larger than 100MB
+# → find . -size +100M -type f -exec ls -lh {} \;
 
-/clipboard compress all log files
-# → tar -czf logs-$(date +%Y%m%d).tar.gz *.log
+/clipboard compress directory excluding dependencies
+# → tar --exclude='node_modules' --exclude='vendor' -czf backup-$(date +%Y%m%d).tar.gz .
+
+/clipboard check which process is using port
+# → lsof -i :3000
 ```
 
-### Docker Management
+### Network & Service Management
 ```bash
-/clipboard docker-stop-all
-# → docker stop $(docker ps -q)
+/clipboard restart Docker daemon when stuck
+# → sudo systemctl restart docker || sudo service docker restart
 
-/clipboard remove all docker containers
-# → docker rm $(docker ps -aq)
+/clipboard check SSL certificate expiration
+# → echo | openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -dates
 
-/clipboard docker cleanup images
-# → docker image prune -a
+/clipboard monitor real-time network connections
+# → netstat -tulnp | grep :80
 ```
 
-### Development Workflows
+### Development Troubleshooting  
 ```bash
-/clipboard npm-clean
-# → rm -rf node_modules package-lock.json && npm install
+/clipboard reset file permissions recursively
+# → find . -type f -exec chmod 644 {} \; && find . -type d -exec chmod 755 {} \;
 
-/clipboard kill process on port 3000
-# → kill -9 $(lsof -ti:3000)
+/clipboard clear all DNS cache
+# → sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
 
-/clipboard git-branch-clean
-# → git branch --merged | grep -v main | xargs git branch -d
+/clipboard force kill all node processes
+# → pkill -f node || killall node
 ```
 
-## 🎯 Built-in Templates
+## 🎯 Unusual Commands for Colleague Sharing
 
-| Template | Expands To | Description |
-|----------|------------|-------------|
-| `git-add-commit-push` | `git add . && git commit -m 'update' && git push` | Quick commit workflow |
-| `git-reset-keep` | `git reset HEAD~1` | Undo last commit, keep changes |
-| `docker-stop-all` | `docker stop $(docker ps -q)` | Stop all running containers |
-| `docker-remove-all` | `docker rm $(docker ps -aq)` | Remove all containers |
-| `find-js` | `find . -name '*.js' -not -path './node_modules/*'` | Find JS files (exclude node_modules) |
-| `find-py` | `find . -name '*.py' -not -path './venv/*' -not -path './.venv/*'` | Find Python files (exclude venv) |
-| `npm-clean` | `rm -rf node_modules package-lock.json && npm install` | Clean npm install |
-| `git-branch-clean` | `git branch --merged \| grep -v main \| xargs git branch -d` | Clean merged branches |
+The `/clipboard` skill specializes in generating those hard-to-remember, unusual commands that you'd want to share with colleagues on Slack, Discord, or any communication platform. Perfect for:
+
+- **Complex one-liners** that are hard to construct from scratch
+- **System administration commands** that vary by platform  
+- **Debugging commands** that you can never remember the exact syntax for
+- **Configuration setups** that require specific directory structures and JSON formatting
+- **Commands Claude Code can't execute** due to system limitations or security constraints
 
 ## 🌍 Platform Support
 

@@ -24,26 +24,25 @@ version: 2.0.0
 ## Usage
 
 ```bash
-/clipboard install GitHub copilot
-/clipboard remove all docker containers  
-/clipboard find javascript files excluding node_modules
-/clipboard git reset but keep changes
-/clipboard create postgres backup script
-/clipboard one-liner to kill process on port 3000
-/clipboard give me a one-liner to prevent my colleague from using other providers and ensure only GitHub copilot in their open code
+/clipboard one-liner to configure Copilot in OpenCode
+/clipboard command to restart stuck SSH agent
+/clipboard find all files larger than 100MB
+/clipboard kill process holding a file handle
+/clipboard compress directory excluding node_modules
+/clipboard one-liner to prevent colleague from using other AI providers in OpenCode
 ```
 
 ## Behavior
 
 - **Natural language processing** — Understands conversational requests and generates appropriate commands
-- **One-liner detection** — Automatically creates single commands perfect for sharing with colleagues  
+- **One-liner focus** — Optimized for sharing unusual, hard-to-find commands with colleagues
 - **Copy to clipboard then display** — Execute clipboard command then show what was copied
 - **NO "here's the command" or similar preamble before copying**
 - **Show copied content after clipboard operation** — Confirm what was successfully copied
-- **Optimized for immediate copy-paste use**
+- **Optimized for command sharing** — Perfect for Slack, Discord, or any communication platform
 - **Auto-detects platform and uses appropriate clipboard tool**
 - **Single line preferred when possible**
-- **Privilege one-liners when there are sequential commands** (use `&&` or `;` to chain)
+- **Chain commands intelligently** (use `&&` or `;` when beneficial)
 - **Multiple lines only when necessary for readability**
 - **Security validation for dangerous commands** (warns with confirmation)
 - **Context-aware command optimization**
@@ -77,18 +76,17 @@ echo "command" | termux-clipboard-set
 
 Intelligent command generation from natural language:
 
-- **One-liner detection** — Automatically generates single commands for quick sharing
+- **One-liner focus** — Specializes in creating commands perfect for sharing with colleagues
 - **Context-aware** — Understands intent from conversational descriptions  
 - **Command optimization** — Chains operations intelligently with `&&` and `;`
 - **Cross-platform aware** — Adapts commands for the target platform
 
 **Example patterns:**
-- "install GitHub copilot" → `gh extension install github/gh-copilot`
-- "setup opencode with github copilot" → `mkdir -p ~/.config/opencode && echo '{"$schema":"https://opencode.ai/config.json","enabled_providers":["github-copilot"]}' > ~/.config/opencode/opencode.json`
-- "give me a one-liner to prevent my colleague from using other providers and ensure only GitHub copilot in their open code" → `mkdir -p ~/.config/opencode && echo '{"$schema":"https://opencode.ai/config.json","enabled_providers":["github-copilot"],"provider_lock":true}' > ~/.config/opencode/opencode.json`
-- "remove all docker containers" → `docker rm $(docker ps -aq)`
-- "find javascript files excluding node_modules" → `find . -name '*.js' -not -path './node_modules/*'`
-- "git reset but keep changes" → `git reset HEAD~1`
+- "configure OpenCode to only use Copilot" → `mkdir -p ~/.config/opencode && echo '{"$schema":"https://opencode.ai/config.json","enabled_providers":["github-copilot"],"provider_lock":true}' > ~/.config/opencode/opencode.json`
+- "kill SSH agent and restart it" → `pkill ssh-agent; eval $(ssh-agent -s); ssh-add ~/.ssh/id_rsa`
+- "find files larger than 100MB" → `find . -size +100M -type f -exec ls -lh {} \;`
+- "restart stuck Docker daemon" → `sudo systemctl restart docker || sudo service docker restart`
+- "compress directory excluding dependencies" → `tar --exclude='node_modules' --exclude='vendor' -czf backup-$(date +%Y%m%d).tar.gz .`
 
 ## Security Validation
 
@@ -175,38 +173,28 @@ If primary clipboard tool isn't available, the skill attempts fallbacks:
 
 ## Cross-Platform Examples
 
-**User:** `/clipboard git reset last commit keep changes`
+**User:** `/clipboard one-liner to configure OpenCode for Copilot only`
 
 **macOS Response:**
 ```bash
-echo "git reset HEAD~1" | pbcopy
+echo "mkdir -p ~/.config/opencode && echo '{\"\\$schema\":\"https://opencode.ai/config.json\",\"enabled_providers\":[\"github-copilot\"],\"provider_lock\":true}' > ~/.config/opencode/opencode.json" | pbcopy
 ```
 
 **Linux Response (X11):**
 ```bash
-echo "git reset HEAD~1" | xclip -selection clipboard
+echo "mkdir -p ~/.config/opencode && echo '{\"\\$schema\":\"https://opencode.ai/config.json\",\"enabled_providers\":[\"github-copilot\"],\"provider_lock\":true}' > ~/.config/opencode/opencode.json" | xclip -selection clipboard
 ```
 
 **Windows Response:**
 ```bash
-echo "git reset HEAD~1" | clip
+echo "mkdir -p ~/.config/opencode && echo '{\"\\$schema\":\"https://opencode.ai/config.json\",\"enabled_providers\":[\"github-copilot\"],\"provider_lock\":true}' > ~/.config/opencode/opencode.json" | clip
 ```
 
-**User:** `/clipboard install GitHub copilot` 
-```bash
-echo "gh extension install github/gh-copilot" | [platform-clipboard-tool]
-```
-
-**User:** `/clipboard remove all docker containers`
-```bash
-echo "docker rm \$(docker ps -aq)" | [platform-clipboard-tool]
-```
-
-**User:** `/clipboard one-liner postgres backup script`
+**User:** `/clipboard command to find and kill process holding file handle`
 **Platform-agnostic response:**
 ```bash
 cat << 'EOF' | [platform-clipboard-tool]
-pg_dump -h localhost -U postgres dbname > backup_$(date +%Y%m%d).sql
+lsof "$1" | awk 'NR>1 {print $2}' | xargs kill -9
 EOF
 ```
 
