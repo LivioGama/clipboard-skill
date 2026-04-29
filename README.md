@@ -14,22 +14,53 @@ Transform your development workflow with instant command generation and cross-pl
 
 ## 🔧 Installation
 
-### Modern Installation (Recommended)
+### For Claude Code Users
 
-Install directly from GitHub using Claude Code's built-in skill installer:
-
+**Modern Installation (Recommended):**
 ```bash
 /skill-installer install from https://github.com/LivioGama/clipboard-skill
 ```
 
-### Manual Installation (Alternative)
-
-If you prefer manual setup:
+**Manual Installation:**
 ```bash
 git clone https://github.com/LivioGama/clipboard-skill ~/.claude/skills/clipboard
 ```
 
-After installation, restart Claude Code to load the skill, then start using with `/clipboard`!
+### For Non-Claude Code Users
+
+**Standalone Shell Function:**
+Add to your `~/.bashrc` or `~/.zshrc`:
+```bash
+clipboard() {
+    local content="$*"
+    
+    # Detect platform and copy
+    if command -v pbcopy >/dev/null 2>&1; then
+        echo "$content" | pbcopy  # macOS
+    elif command -v xclip >/dev/null 2>&1; then
+        echo "$content" | xclip -selection clipboard  # Linux X11
+    elif command -v wl-copy >/dev/null 2>&1; then
+        echo "$content" | wl-copy  # Linux Wayland
+    elif command -v clip.exe >/dev/null 2>&1; then
+        echo "$content" | clip.exe  # WSL/Windows
+    else
+        echo "Clipboard tool not found. Content: $content"
+    fi
+    
+    echo "Copied: $content"
+}
+```
+
+**Usage:**
+```bash
+clipboard "git reset HEAD~1"
+clipboard "docker stop \$(docker ps -q)"
+```
+
+**VS Code Extension:** Coming soon!  
+**Standalone CLI Tool:** Coming soon!
+
+After installation, restart your environment and start using!
 
 ## 🚀 Quick Start
 
