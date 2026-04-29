@@ -14,8 +14,7 @@ Transform your development workflow with instant command generation and cross-pl
 
 ## 🔧 Installation
 
-### For Claude Code Users
-
+### Claude Code
 **Modern Installation (Recommended):**
 ```bash
 /skill-installer install from https://github.com/LivioGama/clipboard-skill
@@ -26,41 +25,16 @@ Transform your development workflow with instant command generation and cross-pl
 git clone https://github.com/LivioGama/clipboard-skill ~/.claude/skills/clipboard
 ```
 
-### For Non-Claude Code Users
-
-**Standalone Shell Function:**
-Add to your `~/.bashrc` or `~/.zshrc`:
+### Other AI Coding Assistants
+**Cursor, Continue, or similar:**
 ```bash
-clipboard() {
-    local content="$*"
-    
-    # Detect platform and copy
-    if command -v pbcopy >/dev/null 2>&1; then
-        echo "$content" | pbcopy  # macOS
-    elif command -v xclip >/dev/null 2>&1; then
-        echo "$content" | xclip -selection clipboard  # Linux X11
-    elif command -v wl-copy >/dev/null 2>&1; then
-        echo "$content" | wl-copy  # Linux Wayland
-    elif command -v clip.exe >/dev/null 2>&1; then
-        echo "$content" | clip.exe  # WSL/Windows
-    else
-        echo "Clipboard tool not found. Content: $content"
-    fi
-    
-    echo "Copied: $content"
-}
+git clone https://github.com/LivioGama/clipboard-skill ~/.cursor/skills/clipboard
+# or wherever your AI assistant looks for skills
 ```
 
-**Usage:**
-```bash
-clipboard "git reset HEAD~1"
-clipboard "docker stop \$(docker ps -q)"
-```
+**Check your AI assistant's documentation for the correct skills directory path.**
 
-**VS Code Extension:** Coming soon!  
-**Standalone CLI Tool:** Coming soon!
-
-After installation, restart your environment and start using!
+After installation, restart your environment and start using with `/clipboard`!
 
 ## 🚀 Quick Start
 
