@@ -8,7 +8,7 @@ Transform your development workflow with instant command generation and cross-pl
 
 🚀 **Natural language processing** — Understands conversational requests and generates appropriate commands  
 🌍 **Universal platform support** — macOS, Linux (X11/Wayland), Windows, WSL, and Android (Termux)  
-🎯 **Colleague sharing focus** — Perfect for unusual commands that are hard to find or remember  
+🎯 **Colleague sharing focus** — Perfect for unusual commands AND bypassing Claude Code formatting issues  
 🛡️ **Safety first** — Automatic validation prevents dangerous commands  
 ⚡ **Context-aware optimization** — Chains commands intelligently with `&&` and `;`  
 
@@ -102,15 +102,21 @@ After installation, restart your environment and start using with `/clipboard`!
 # → pkill -f node || killall node
 ```
 
-## 🎯 Unusual Commands for Colleague Sharing
+## 🎯 Clean Commands for Sharing & Direct Use
 
-The `/clipboard` skill specializes in generating those hard-to-remember, unusual commands that you'd want to share with colleagues on Slack, Discord, or any communication platform. Perfect for:
+The `/clipboard` skill specializes in generating clean, properly formatted commands perfect for:
 
+**Colleague Sharing:**
 - **Complex one-liners** that are hard to construct from scratch
 - **System administration commands** that vary by platform  
 - **Debugging commands** that you can never remember the exact syntax for
 - **Configuration setups** that require specific directory structures and JSON formatting
+
+**Claude Code Limitations:**
+- **Long commands that break** when Claude Code adds unwanted line breaks and spaces
 - **Commands Claude Code can't execute** due to system limitations or security constraints
+- **Clean formatting** without markdown formatting or extra whitespace that breaks execution
+- **Properly escaped strings** that work correctly when pasted into terminal
 
 ## 🌍 Platform Support
 
