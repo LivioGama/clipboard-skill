@@ -1,14 +1,23 @@
-# 📋 Claude Code Clipboard Skill
+# 📋 Clipboard Skills Suite
 
 > **Lightning-fast clipboard automation for developers across all platforms**
 
 Transform your development workflow with instant command generation and cross-platform clipboard integration. No more hunting through documentation or remembering complex syntax—just ask and it's instantly in your clipboard, ready to paste.
+
+## 📦 Skills in This Suite
+
+### 1. **clipboard** — Copy TO clipboard
+Generate commands, code, or text and copy them directly to your clipboard. Perfect for sharing commands with colleagues or bypassing AI assistant formatting issues.
+
+### 2. **from-clipboard** — Read FROM clipboard  
+Read and process content from your clipboard. Analyze code, fix bugs, transform data, or explain text that's already copied.
 
 ## ✨ Features
 
 🚀 **Natural language processing** — Understands conversational requests and generates appropriate commands  
 🌍 **Universal platform support** — macOS, Linux (X11/Wayland), Windows, WSL, and Android (Termux)  
 🎯 **Colleague sharing focus** — Perfect for unusual commands AND bypassing Claude Code formatting issues  
+🔄 **Bidirectional clipboard** — Both copy TO and read FROM clipboard  
 🛡️ **Safety first** — Automatic validation prevents dangerous commands  
 ⚡ **Context-aware optimization** — Chains commands intelligently with `&&` and `;`  
 
@@ -21,28 +30,56 @@ Transform your development workflow with instant command generation and cross-pl
 ```
 
 **Manual Installation:**
+
+This repo ships **two** skills (`clipboard` and `from-clipboard`). Skills are only discovered as *top-level* directories under `~/.claude/skills/`, so install both:
 ```bash
 git clone https://github.com/LivioGama/clipboard-skill ~/.claude/skills/clipboard
+ln -s clipboard/from-clipboard ~/.claude/skills/from-clipboard
+```
+
+### Codex CLI
+**Installation:**
+```bash
+# Clone to Codex skills directory, then surface from-clipboard as its own top-level skill
+git clone https://github.com/LivioGama/clipboard-skill ~/.codex/skills/clipboard
+ln -s clipboard/from-clipboard ~/.codex/skills/from-clipboard
+
+# Or if using a different skills path, check your Codex configuration
+git clone https://github.com/LivioGama/clipboard-skill ~/.config/codex/skills/clipboard
+ln -s clipboard/from-clipboard ~/.config/codex/skills/from-clipboard
+```
+
+### Devin CLI
+**Installation:**
+```bash
+# Clone to Devin skills directory, then surface from-clipboard as its own top-level skill
+git clone https://github.com/LivioGama/clipboard-skill ~/.devin/skills/clipboard
+ln -s clipboard/from-clipboard ~/.devin/skills/from-clipboard
+
+# Or use the Devin skill installer if available
+devin skill install https://github.com/LivioGama/clipboard-skill
 ```
 
 ### Other AI Coding Assistants
 **Cursor, Continue, or similar:**
 ```bash
 git clone https://github.com/LivioGama/clipboard-skill ~/.cursor/skills/clipboard
+ln -s clipboard/from-clipboard ~/.cursor/skills/from-clipboard
 # or wherever your AI assistant looks for skills
 ```
 
 **Check your AI assistant's documentation for the correct skills directory path.**
 
-After installation, restart your environment and start using with `/clipboard`!
+After installation, restart your environment and start using with `/clipboard` and `/from-clipboard`!
 
 ## 🚀 Quick Start
 
+### clipboard (Copy TO clipboard)
 ```bash
 # Configure OpenCode to only use Copilot
 /clipboard one-liner to configure OpenCode for Copilot only
 
-# Kill and restart SSH agent  
+# Kill and restart SSH agent
 /clipboard restart stuck SSH agent
 
 # Find large files for cleanup
@@ -50,6 +87,21 @@ After installation, restart your environment and start using with `/clipboard`!
 
 # Kill process holding a file handle
 /clipboard kill process holding file handle on specific file
+```
+
+### from-clipboard (Read FROM clipboard)
+```bash
+# Analyze code you've copied
+/from-clipboard analyze this code for performance issues
+
+# Fix bugs in copied code
+/from-clipboard fix the bugs in this code
+
+# Convert code to another language
+/from-clipboard convert this JavaScript to TypeScript
+
+# Explain what copied code does
+/from-clipboard explain what this function does
 ```
 
 ## 📖 Usage Examples
@@ -100,6 +152,25 @@ After installation, restart your environment and start using with `/clipboard`!
 
 /clipboard force kill all node processes
 # → pkill -f node || killall node
+```
+
+### from-clipboard Processing
+```bash
+# Copy some code, then:
+/from-clipboard analyze this code
+# → Reads clipboard, provides analysis and suggestions
+
+/from-clipboard fix the bugs
+# → Reads clipboard, identifies and fixes bugs
+
+/from-clipboard convert to TypeScript
+# → Reads JS code, converts to TypeScript
+
+/from-clipboard add error handling
+# → Reads clipboard code, adds try-catch blocks
+
+/from-clipboard format this JSON
+# → Reads clipboard JSON, pretty-prints it
 ```
 
 ## 🎯 Clean Commands for Sharing & Direct Use
